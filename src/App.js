@@ -6,10 +6,10 @@ import DATA from './data.js';
 class App extends Component {
   render() {
     const routeData = DATA.routes.map(route => (
-      <tr>
-        <td>{route.airline}</td>
-        <td>{route.src}</td>
-        <td>{route.dest}</td>
+      <tr key={`${route.airline}: ${route.src}-${route.dest}`}>  
+        <td>{DATA.getAirlineById(route.airline).name}</td>
+        <td>{DATA.getAirportByCode(route.src).name}</td>
+        <td>{DATA.getAirportByCode(route.dest).name}</td>
       </tr>
     ));
 
@@ -21,9 +21,11 @@ class App extends Component {
         <section>
           <table>
             <thead>
-              <th>Airline</th>
-              <th>src</th>
-              <th>dest</th>
+              <tr>
+                <th>Airline</th>
+                <th>src</th>
+                <th>dest</th>
+              </tr>  
             </thead>
             <tbody>
               {routeData}  
@@ -36,5 +38,3 @@ class App extends Component {
 }
 
 export default App;
-
-// for each entry in the routes array, iterate over and create a table row with airline, src & dest
