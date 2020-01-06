@@ -92,8 +92,12 @@ class App extends Component {
               value={this.state.airport}
               onSelect={this.airportSelected}
             />
+            <button
+              onClick={this.resetDefault}>
+              Show All Routes
+            </button>
           </p>
-          
+
           <Table 
             className="routes-table" 
             columns={columns} 
