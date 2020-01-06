@@ -52,18 +52,6 @@ class App extends Component {
       return this.routeHasCurrentAirline(route) && this.routeHasCurrentAirport(route);
     });
 
-    const filteredRoutesByAirline = DATA.routes.filter(this.routeHasCurrentAirline);
-
-    const filteredRoutesByAirport = DATA.routes.filter(this.routeHasCurrentAirport);
-
-    const filteredAirlines = DATA.airlines.filter( (airline) => {
-      return filteredRoutesByAirline.some( (route) => route.airline === airline.id );
-    });
-
-    const filteredAirports = DATA.airports.filter( (airport) => {
-      return filteredRoutesByAirport.some( (route) => route.src === airport.code || route.dest === airport.code );
-    });
-
     return (
       <div className="app">
         <header className="header">
@@ -74,20 +62,20 @@ class App extends Component {
           <p>
             Show routes on 
             <Select 
-              options={filteredAirlines} 
+              options={DATA.airlines}
+              routes={filteredRoutes}
               valueKey="id" 
               titleKey="name"
-              enabledKey="active"
               allTitle="All Airlines"
               value={this.state.airline}
               onSelect={this.airlineSelected}
             />
             flying in or out of 
             <Select
-              options={filteredAirports}
+              options={DATA.airports}
               valueKey="code"
               titleKey="name"
-              enabledKey="active"
+              routes={filteredRoutes}
               allTitle="All Airports"
               value={this.state.airport}
               onSelect={this.airportSelected}
